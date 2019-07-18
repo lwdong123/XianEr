@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+  <context id="OracleTables" targetRuntime="MyBatis3" defaultModelType="flat">
+  	<plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+      <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
+    </plugin>
+  	<commentGenerator>
+		<property name="suppressDate" value="true"/>
+		<property name="suppressAllComments" value="true"/>
+	</commentGenerator>
+
+      <!--<jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"-->
+                      <!--connectionURL="jdbc:oracle:thin:@192.168.0.43:1521:orcl"-->
+                      <!--userId="ISPA"-->
+                      <!--password="ISPA">-->
+          <!--<property name="remarksReporting" value="true"/>-->
+      <!--</jdbcConnection>-->
+   <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+        connectionURL="jdbc:mysql://127.0.0.1:3306/db1?serverTimezone=Asia/Shanghai&amp;useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf-8"
+        userId="root"
+        password="root">
+        <property name="remarksReporting" value="true"/>
+    </jdbcConnection>
+
+    <javaTypeResolver >
+      <property name="forceBigDecimals" value="false" />
+    </javaTypeResolver>
+      <javaModelGenerator targetPackage="com.example.dcits.model"
+                          targetProject="E:\hkb\dcits\src\main\java">
+          <property name="enableSubPackages" value="false"/>
+          <property name="trimStrings" value="true"/>
+      </javaModelGenerator>
+      <sqlMapGenerator targetPackage="mapper"
+                       targetProject="E:\hkb\dcits\src\main\resources">
+          <property name="enableSubPackages" value="false"/>
+      </sqlMapGenerator>
+      <javaClientGenerator type="XMLMAPPER" targetPackage="com.example.dcits.dao"
+                           targetProject="E:\hkb\dcits\src\main\java">
+          <property name="enableSubPackages" value="false"/>
+      </javaClientGenerator>
+
+	 <table tableName="emp"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+		<!--自动生成的属性名和数据库列名一样 true：是 ： false:否-->
+         <property name="useActualColumnNames" value="true"/>
+		<!--生成的SQL中的表名将不会包含schema和catalog前缀-->
+		<property name="ignoreQualifiersAtRuntime" value="false"/>
+	</table>
+	
+	
+  </context>
+</generatorConfiguration>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dcits.dao.EmpMapper">
+
+  <resultMap id="BaseResultMap" type="com.example.dcits.model.Emp">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="empno" jdbcType="INTEGER" property="empno" />
+    <result column="ename" jdbcType="VARCHAR" property="ename" />
+    <result column="job" jdbcType="VARCHAR" property="job" />
+    <result column="mgr" jdbcType="INTEGER" property="mgr" />
+    <result column="hiredate" jdbcType="DATE" property="hiredate" />
+    <result column="sal" jdbcType="DOUBLE" property="sal" />
+    <result column="comm" jdbcType="DOUBLE" property="comm" />
+    <result column="deptno" jdbcType="INTEGER" property="deptno" />
+  </resultMap>
+</mapper>
