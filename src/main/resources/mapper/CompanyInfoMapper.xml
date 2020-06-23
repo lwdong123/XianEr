@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcis.frontier.dao.CompanyInfoMapper">
+  <resultMap id="BaseResultMap" type="com.dcis.frontier.models.CompanyInfo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="companyNo" jdbcType="INTEGER" property="companyNo" />
+    <result column="companyName" jdbcType="VARCHAR" property="companyName" />
+    <result column="companyNameEn" jdbcType="VARCHAR" property="companyNameEn" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="mobilePhone" jdbcType="VARCHAR" property="mobilePhone" />
+    <result column="contract" jdbcType="VARCHAR" property="contract" />
+    <result column="companyAddress" jdbcType="VARCHAR" property="companyAddress" />
+    <result column="registerMoney" jdbcType="DECIMAL" property="registerMoney" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+  </resultMap>
+
+  <select id="getCompanyInfo" parameterType="map" resultType="map">
+    select * from company_info t
+    <where>
+      <if test="companyName!='' and companyName!=null">
+        and t.company_name=#{companyName}
+      </if>
+      <if test="mobilePhone!='' and mobilePhone!=null">
+        and t.mobile_phone=#{mobilePhone}
+      </if>
+      <if test="telephone!='' and telephone!=null">
+        and t.telephone=#{telephone}
+      </if>
+      <if test="contract!='' and contract!=null">
+        and t.contract=#{contract}
+      </if>
+    </where>
+  </select>
+</mapper>

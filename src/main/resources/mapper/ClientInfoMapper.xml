@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcis.frontier.dao.ClientInfoMapper">
+  <resultMap id="BaseResultMap" type="com.dcis.frontier.models.ClientInfo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="clientNo" jdbcType="INTEGER" property="clientNo" />
+    <result column="clientName" jdbcType="VARCHAR" property="clientName" />
+    <result column="clientType" jdbcType="VARCHAR" property="clientType" />
+    <result column="mobilePhone" jdbcType="VARCHAR" property="mobilePhone" />
+    <result column="orderNum" jdbcType="INTEGER" property="orderNum" />
+    <result column="orderGoods" jdbcType="VARCHAR" property="orderGoods" />
+    <result column="dealMoney" jdbcType="DECIMAL" property="dealMoney" />
+    <result column="profit" jdbcType="DECIMAL" property="profit" />
+    <result column="allDealMoney" jdbcType="DECIMAL" property="allDealMoney" />
+    <result column="allProfit" jdbcType="DECIMAL" property="allProfit" />
+    <result column="recentBuying" jdbcType="TIMESTAMP" property="recentBuying" />
+    <result column="clientCredit" jdbcType="VARCHAR" property="clientCredit" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+  </resultMap>
+  <select id="getClientInfo" parameterType="map" resultType="map">
+    select * from client_info t
+    <where>
+      <if test="clientName!='' and clientName!=null">
+        and t.client_name=#{clientName}
+      </if>
+      <if test="clientType!='' and clientType!=null">
+        and t.client_type=#{clientType}
+      </if>
+      <if test="mobilePhone!='' and mobilePhone!=null">
+        and t.mobile_phone=#{mobilePhone}
+      </if>
+      <if test="orderGoods!='' and orderGoods!=null">
+        and t.order_goods=#{orderGoods}
+      </if>
+    </where>
+    order by t.recent_buying desc
+  </select>
+
+  <select id="selectMaxMoney" parameterType="map" resultType="map">
+    select max(all_deal_money) allDealMoney from client_Info
+    where mobile_phone=#{mobilePhone}
+  </select>
+
+</mapper>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcis.frontier.dao.GoodsMapper">
+  <resultMap id="BaseResultMap" type="com.dcis.frontier.models.Goods">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="goodsNo" jdbcType="INTEGER" property="goodsNo" />
+    <result column="gName" jdbcType="VARCHAR" property="gName" />
+    <result column="goodsModel" jdbcType="VARCHAR" property="goodsModel" />
+    <result column="appearModel" jdbcType="VARCHAR" property="appearModel" />
+    <result column="otherModel" jdbcType="VARCHAR" property="otherModel" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="buyingPrice" jdbcType="DECIMAL" property="buyingPrice" />
+    <result column="sellPrice" jdbcType="DECIMAL" property="sellPrice" />
+    <result column="floatPrice" jdbcType="DECIMAL" property="floatPrice" />
+    <result column="curr" jdbcType="VARCHAR" property="curr" />
+    <result column="purchaseNum" jdbcType="INTEGER" property="purchaseNum" />
+    <result column="stockNum" jdbcType="INTEGER" property="stockNum" />
+    <result column="profit" jdbcType="DECIMAL" property="profit" />
+    <result column="purchaseDate" jdbcType="TIMESTAMP" property="purchaseDate" />
+    <result column="recentDate" jdbcType="TIMESTAMP" property="recentDate" />
+  </resultMap>
+
+  <select id="getDname" parameterType="map" resultType="map">
+    select * from GOODS t
+    <where>
+      <if test="goodsNo!='' and goodsNo!=null">
+        and t.goods_no=#{goodsNo}
+      </if>
+      <if test="gName!='' and gName!=null">
+        and t.g_name=#{gName}
+      </if>
+      <if test="goodsModel!='' and goodsModel!=null">
+        and t.goods_model=#{goodsModel}
+      </if>
+      <if test="appearModel!='' and appearModel!=null">
+        and t.appear_model=#{appearModel}
+      </if>
+      <if test="appearModel!='' and appearModel!=null">
+        and t.appear_model=#{appearModel}
+      </if>
+      <if test="buyingPrice!='' and buyingPrice!=null">
+        and t.buying_price=#{buyingPrice}
+      </if>
+      <if test="sellPrice!='' and sellPrice!=null">
+      and t.sell_price=#{sellPrice}
+    </if>
+      <if test="purchaseNum!='' and purchaseNum!=null">
+      and t.purchase_num=#{purchaseNum}
+    </if>
+    </where>
+    order by t.recent_date
+  </select>
+
+  <select id="getBuyingPriceByGoodsName" parameterType="map" resultType="map">
+  select * from goods where g_name=#{gName}
+  </select>
+
+  <update id="updateStockNum" parameterType="com.dcis.frontier.models.Goods">
+    update goods set stock_num=#{stockNum},profit=#{profit},recent_date=#{recentDate}  where g_name=#{gName}
+  </update>
+</mapper>

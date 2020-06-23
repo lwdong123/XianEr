@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcis.frontier.dao.RecordMapper">
+  <resultMap id="BaseResultMap" type="com.dcis.frontier.models.Record">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="recordNo" jdbcType="INTEGER" property="recordNo" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="recordName" jdbcType="VARCHAR" property="recordName" />
+    <result column="goodsModel" jdbcType="VARCHAR" property="goodsModel" />
+    <result column="appearModel" jdbcType="VARCHAR" property="appearModel" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="curr" jdbcType="VARCHAR" property="curr" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+  </resultMap>
+
+  <select id="getRecord" parameterType="map" resultType="map">
+    select t.*,case when t.status = '0' then '未审核'when t.status = '1' then '待审核' when t.status = '2'
+    then '审核成功' end as statusName from record t
+    <where>
+      <if test="type!='' and type!=null">
+        and t.type=#{type}
+      </if>
+      <if test="recordName!='' and recordName!=null">
+        and t.record_name=#{recordName}
+      </if>
+      <if test="goodsModel!='' and goodsModel!=null">
+        and t.goods_model=#{goodsModel}
+      </if>
+      <if test="status!='' and status!=null">
+        and t.status=#{status}
+      </if>
+    </where>
+  </select>
+
+  <update id="reviewRecord" parameterType="com.dcis.frontier.models.Record">
+    update record set status=#{status} where record_no=#{recordNo}
+  </update>
+
+  <select id="getRecordName" resultType="map">
+    select record_name recordName from record where status='2'
+  </select>
+  <select id="getGoodsInfoByName" resultType="com.dcis.frontier.models.Goods">
+    select record_name gName,goods_model goodsModel,appear_model appearModel,unit,curr from  record where record_name=#{gName} and status='2'
+  </select>
+</mapper>

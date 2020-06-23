@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcis.frontier.dao.ClientMemberMapper">
+  <resultMap id="BaseResultMap" type="com.dcis.frontier.models.ClientMember">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="memberNo" jdbcType="INTEGER" property="memberNo" />
+    <result column="mobliePhone" jdbcType="VARCHAR" property="mobliePhone" />
+    <result column="remainMoney" jdbcType="VARCHAR" property="remainMoney" />
+    <result column="recentRechargeTime" jdbcType="TIMESTAMP" property="recentRechargeTime" />
+    <result column="receiveMoney" jdbcType="DECIMAL" property="receiveMoney" />
+    <result column="rechargeMul" jdbcType="DECIMAL" property="rechargeMul" />
+    <result column="customMoney" jdbcType="DECIMAL" property="customMoney" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+  </resultMap>
+
+  <select id="getClientMember" parameterType="map" resultType="map">
+    select * from client_member t
+    <where>
+      <if test="mobilePhone!='' and mobilePhone!=null">
+        and t.moblie_phone=#{mobilePhone}
+      </if>
+      <if test="receiveMoney!='' and receiveMoney!=null">
+        and t.receive_money=#{receiveMoney}
+      </if>
+    </where>
+    order by t.recent_recharge_time
+  </select>
+  <update id="updateRemainMoney" parameterType="com.dcis.frontier.models.ClientMember" >
+    update client_member set remain_money=#{remainMoney} where moblie_phone=#{mobliePhone}
+  </update>
+
+  <select id="getMoneyByPhone" parameterType="map" resultType="map">
+    select t.* from client_member t
+    <where>
+      <if test="mobilePhone!='' and mobilePhone!=null">
+        and t.moblie_phone=#{mobilePhone}
+      </if>
+    </where>
+  </select>
+</mapper>
